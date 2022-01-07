@@ -34,11 +34,15 @@
     <Property name="bounds" type="java.awt.Rectangle" editor="org.netbeans.beaninfo.editors.RectangleEditor">
       <Rectangle value="[0, 0, 0, 0]"/>
     </Property>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowActivated" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowActivated"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -402,6 +406,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextField1">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="cc" green="cc" red="cc" type="rgb"/>
                     </Property>
@@ -862,7 +867,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="jTable1">
+                    <Component class="javax.swing.JTable" name="tbClientes">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="cc" green="cc" red="cc" type="rgb"/>

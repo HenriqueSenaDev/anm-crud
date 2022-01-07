@@ -2,8 +2,15 @@ package br.com.ferias.dao;
 
 import br.com.ferias.jdbc.ConnectionFactory;
 import br.com.ferias.model.Cliente;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JOptionPane;
 
 public class ClienteDAO {
@@ -37,8 +44,46 @@ public class ClienteDAO {
             stmt.close();
             
             JOptionPane.showMessageDialog(null, "Dados cadastrados com sucesso!");
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro no cadastro: \n" + e);
         }
     }
+    
+    public List<Cliente> listarClientes(){
+        try {
+            List<Cliente> clientes = new ArrayList<>();
+            
+            String sql = "SELECT * FROM cliente";
+            PreparedStatement stmt = this.con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                Cliente cli = new Cliente();
+                
+                cli.setId(rs.getInt("id"));
+                cli.setNome("nome");
+                cli.setRg(rs.getString("rg"));
+                cli.setCpf(rs.getString("cpf"));
+                cli.setEmail(rs.getString("email"));
+                cli.setTelefone(rs.getString("telefone"));
+                cli.setCelular(rs.getString("celular"));
+                cli.setCep(rs.getString("cep"));
+                cli.setEndereco(rs.getString("endereco"));
+                cli.setNumero(rs.getInt("numero"));
+                cli.setComplemento(rs.getString("complemento"));
+                cli.setBairro(rs.getString("bairro"));
+                cli.setCidade(rs.getString("cidade"));
+                cli.setUf(rs.getString("uf"));
+                
+                clientes.add(cli);
+            }
+            
+            return clientes;
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro na busca de dados: \n" + e);
+            return null;
+        }
+    }
+    
 }

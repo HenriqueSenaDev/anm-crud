@@ -2,6 +2,8 @@ package br.com.ferias.view;
 
 import br.com.ferias.dao.ClienteDAO;
 import br.com.ferias.model.Cliente;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 public class frmCliente extends javax.swing.JFrame {
 
@@ -10,6 +12,32 @@ public class frmCliente extends javax.swing.JFrame {
      */
     public frmCliente() {
         initComponents();
+    }
+    
+    public void listar(){
+        ClienteDAO dao = new ClienteDAO();
+        List<Cliente> clientes = dao.listarClientes();
+        DefaultTableModel dados = (DefaultTableModel)tbClientes.getModel();
+        dados.setNumRows(0);
+        
+        for (Cliente cliente : clientes) {
+            dados.addRow(new Object[]{
+                cliente.getId(),
+                cliente.getNome(),
+                cliente.getRg(),
+                cliente.getCpf(),
+                cliente.getEmail(),
+                cliente.getTelefone(),
+                cliente.getCelular(),
+                cliente.getCep(),
+                cliente.getEndereco(),
+                cliente.getNumero(),
+                cliente.getComplemento(),
+                cliente.getBairro(),
+                cliente.getCidade(),
+                cliente.getUf()    
+            });
+        }
     }
 
     /**
@@ -66,7 +94,7 @@ public class frmCliente extends javax.swing.JFrame {
         jTextField9 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbClientes = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -87,6 +115,12 @@ public class frmCliente extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Alfredo Online");
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
+        setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         PainelPrincipal.setBackground(new java.awt.Color(0, 169, 24));
 
@@ -147,6 +181,7 @@ public class frmCliente extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("RG:");
 
+        jTextField1.setEditable(false);
         jTextField1.setBackground(new java.awt.Color(204, 204, 204));
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
@@ -415,9 +450,9 @@ public class frmCliente extends javax.swing.JFrame {
         jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setText("Pesquisar");
 
-        jTable1.setBackground(new java.awt.Color(204, 204, 204));
-        jTable1.setForeground(new java.awt.Color(0, 0, 0));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbClientes.setBackground(new java.awt.Color(204, 204, 204));
+        tbClientes.setForeground(new java.awt.Color(0, 0, 0));
+        tbClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -425,7 +460,7 @@ public class frmCliente extends javax.swing.JFrame {
                 "Código", "Nome", "RG", "CPF", "E-mail", "Telefone", "Celular", "CEP", "Endereço", "Nº", "Comp.", "Bairro", "Cidade", "UF"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbClientes);
 
         javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
         panel2.setLayout(panel2Layout);
@@ -588,24 +623,29 @@ public class frmCliente extends javax.swing.JFrame {
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         // TODO add your handling code here:
         Cliente cli = new Cliente();
-
+        
         cli.setNome(tfNome.getText());
-        cli.setEmail(tfEmail.getText());
-        cli.setCep(tfCep.getText());
-        cli.setBairro(tfBairro.getText());
         cli.setRg(tfRg.getText());
-        cli.setEndereco(tfEndereco.getText());
-        cli.setCidade(tfCidade.getText());
         cli.setCpf(tfCpf.getText());
-        cli.setCelular(tfCelular.getText());
+        cli.setEmail(tfEmail.getText());
         cli.setTelefone(tfTelefone.getText());
+        cli.setCelular(tfCelular.getText());
+        cli.setCep(tfCep.getText());
+        cli.setEndereco(tfEndereco.getText());
         cli.setNumero(Integer.parseInt(tfNumero.getText()));
         cli.setComplemento(tfComplemento.getText());
+        cli.setCidade(tfCidade.getText());
+        cli.setBairro(tfBairro.getText());
         cli.setUf(cbUf.getSelectedItem().toString());
         
         ClienteDAO dao = new ClienteDAO();
         dao.salvarCliente(cli);
     }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        listar();
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -675,7 +715,6 @@ public class frmCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField9;
     private java.awt.Menu menu1;
@@ -683,6 +722,7 @@ public class frmCliente extends javax.swing.JFrame {
     private java.awt.MenuBar menuBar1;
     private java.awt.Panel panel1;
     private java.awt.Panel panel2;
+    private javax.swing.JTable tbClientes;
     private javax.swing.JTextField tfBairro;
     private javax.swing.JFormattedTextField tfCelular;
     private javax.swing.JFormattedTextField tfCep;
