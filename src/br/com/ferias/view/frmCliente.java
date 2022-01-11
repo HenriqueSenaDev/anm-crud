@@ -13,13 +13,13 @@ public class frmCliente extends javax.swing.JFrame {
     public frmCliente() {
         initComponents();
     }
-    
-    public void listar(){
+
+    public void listar() {
         ClienteDAO dao = new ClienteDAO();
         List<Cliente> clientes = dao.listarClientes();
-        DefaultTableModel dados = (DefaultTableModel)tbClientes.getModel();
+        DefaultTableModel dados = (DefaultTableModel) tbClientes.getModel();
         dados.setNumRows(0);
-        
+
         for (Cliente cliente : clientes) {
             dados.addRow(new Object[]{
                 cliente.getId(),
@@ -35,7 +35,7 @@ public class frmCliente extends javax.swing.JFrame {
                 cliente.getComplemento(),
                 cliente.getBairro(),
                 cliente.getCidade(),
-                cliente.getUf()    
+                cliente.getUf()
             });
         }
     }
@@ -64,7 +64,7 @@ public class frmCliente extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        tfId = new javax.swing.JTextField();
         tfNome = new javax.swing.JTextField();
         tfEmail = new javax.swing.JTextField();
         button1 = new java.awt.Button();
@@ -97,8 +97,8 @@ public class frmCliente extends javax.swing.JFrame {
         tbClientes = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btEditar = new javax.swing.JButton();
+        btExcluir = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
 
@@ -181,9 +181,9 @@ public class frmCliente extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("RG:");
 
-        jTextField1.setEditable(false);
-        jTextField1.setBackground(new java.awt.Color(204, 204, 204));
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tfId.setEditable(false);
+        tfId.setBackground(new java.awt.Color(204, 204, 204));
+        tfId.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         tfNome.setBackground(new java.awt.Color(204, 204, 204));
         tfNome.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -380,7 +380,7 @@ public class frmCliente extends javax.swing.JFrame {
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 44, Short.MAX_VALUE)))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
@@ -390,7 +390,7 @@ public class frmCliente extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -460,6 +460,11 @@ public class frmCliente extends javax.swing.JFrame {
                 "Código", "Nome", "RG", "CPF", "E-mail", "Telefone", "Celular", "CEP", "Endereço", "Nº", "Comp.", "Bairro", "Cidade", "UF"
             }
         ));
+        tbClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbClientesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbClientes);
 
         javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
@@ -511,27 +516,27 @@ public class frmCliente extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(190, 208, 215));
-        jButton5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(0, 0, 0));
-        jButton5.setText("Editar");
-        jButton5.setMaximumSize(new java.awt.Dimension(91, 31));
-        jButton5.setMinimumSize(new java.awt.Dimension(91, 31));
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btEditar.setBackground(new java.awt.Color(190, 208, 215));
+        btEditar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btEditar.setForeground(new java.awt.Color(0, 0, 0));
+        btEditar.setText("Editar");
+        btEditar.setMaximumSize(new java.awt.Dimension(91, 31));
+        btEditar.setMinimumSize(new java.awt.Dimension(91, 31));
+        btEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btEditarActionPerformed(evt);
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(190, 208, 215));
-        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(0, 0, 0));
-        jButton6.setText("Excluir");
-        jButton6.setMaximumSize(new java.awt.Dimension(91, 31));
-        jButton6.setMinimumSize(new java.awt.Dimension(91, 31));
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btExcluir.setBackground(new java.awt.Color(190, 208, 215));
+        btExcluir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btExcluir.setForeground(new java.awt.Color(0, 0, 0));
+        btExcluir.setText("Excluir");
+        btExcluir.setMaximumSize(new java.awt.Dimension(91, 31));
+        btExcluir.setMinimumSize(new java.awt.Dimension(91, 31));
+        btExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btExcluirActionPerformed(evt);
             }
         });
 
@@ -560,9 +565,9 @@ public class frmCliente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PainelPrincipalLayout.setVerticalGroup(
@@ -585,8 +590,8 @@ public class frmCliente extends javax.swing.JFrame {
                 .addGroup(PainelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
                     .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22))
         );
 
@@ -612,18 +617,43 @@ public class frmCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfCpfActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+        Cliente cli = new Cliente();
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        cli.setNome(tfNome.getText());
+        cli.setRg(tfRg.getText());
+        cli.setCpf(tfCpf.getText());
+        cli.setTelefone(tfTelefone.getText());
+        cli.setCelular(tfCelular.getText());
+        cli.setEmail(tfEmail.getText());
+        cli.setCep(tfCep.getText());
+        cli.setNumero(Integer.parseInt(tfNumero.getText()));
+        cli.setComplemento(tfComplemento.getText());
+        cli.setBairro(tfBairro.getText());
+        cli.setCidade(tfCidade.getText());
+        cli.setEndereco(tfEndereco.getText());
+        cli.setUf(cbUf.getSelectedItem().toString());
+        cli.setId(Integer.parseInt(tfId.getText()));
+
+        ClienteDAO dao = new ClienteDAO();
+        dao.editarCliente(cli);
+    }//GEN-LAST:event_btEditarActionPerformed
+
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+        Cliente cli = new Cliente();
+
+        cli.setId(Integer.parseInt(tfId.getText()));
+
+        ClienteDAO dao = new ClienteDAO();
+        dao.excluirCliente(cli);
+    }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         // TODO add your handling code here:
         Cliente cli = new Cliente();
-        
+
         cli.setNome(tfNome.getText());
         cli.setRg(tfRg.getText());
         cli.setCpf(tfCpf.getText());
@@ -637,7 +667,7 @@ public class frmCliente extends javax.swing.JFrame {
         cli.setCidade(tfCidade.getText());
         cli.setBairro(tfBairro.getText());
         cli.setUf(cbUf.getSelectedItem().toString());
-        
+
         ClienteDAO dao = new ClienteDAO();
         dao.salvarCliente(cli);
     }//GEN-LAST:event_btSalvarActionPerformed
@@ -646,6 +676,26 @@ public class frmCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
         listar();
     }//GEN-LAST:event_formWindowActivated
+
+    private void tbClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbClientesMouseClicked
+        // TODO add your handling code here:
+        jTabbedPane1.setSelectedIndex(0);
+        tfId.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 0).toString());
+        tfNome.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 1).toString());
+        tfRg.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 2).toString());
+        tfCpf.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 3).toString());
+        tfEmail.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 4).toString());
+        tfTelefone.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 5).toString());
+        tfCelular.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 6).toString());
+        tfCep.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 7).toString());
+        tfEndereco.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 8).toString());
+        tfNumero.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 9).toString());
+        tfComplemento.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 10).toString());
+        tfBairro.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 11).toString());
+        tfCidade.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 12).toString());
+        cbUf.setSelectedItem(tbClientes.getValueAt(tbClientes.getSelectedRow(), 13).toString());
+
+    }//GEN-LAST:event_tbClientesMouseClicked
 
     /**
      * @param args the command line arguments
@@ -686,6 +736,8 @@ public class frmCliente extends javax.swing.JFrame {
     private java.awt.Panel PPfaixabranca;
     private java.awt.Panel PPfaixazlaranja;
     private javax.swing.JPanel PainelPrincipal;
+    private javax.swing.JButton btEditar;
+    private javax.swing.JButton btExcluir;
     private javax.swing.JButton btSalvar;
     private java.awt.Button button1;
     private java.awt.Button button2;
@@ -693,8 +745,6 @@ public class frmCliente extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -715,7 +765,6 @@ public class frmCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField9;
     private java.awt.Menu menu1;
     private java.awt.Menu menu2;
@@ -731,6 +780,7 @@ public class frmCliente extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField tfCpf;
     private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfEndereco;
+    private javax.swing.JTextField tfId;
     private javax.swing.JTextField tfNome;
     private javax.swing.JTextField tfNumero;
     private javax.swing.JFormattedTextField tfRg;

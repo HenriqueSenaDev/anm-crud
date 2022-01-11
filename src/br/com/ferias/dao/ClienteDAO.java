@@ -22,10 +22,10 @@ public class ClienteDAO {
     
     public void salvarCliente(Cliente cli){
         try {
-            String url = "insert into Cliente(nome, rg, cpf, email, telefone, "
+            String sql = "insert into Cliente(nome, rg, cpf, email, telefone, "
                     + "celular, cep, endereco, numero, complemento, bairro, cidade, uf)" +
                     " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement stmt = con.prepareStatement(url);
+            PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, cli.getNome());
             stmt.setString(2, cli.getRg());
             stmt.setString(3, cli.getCpf());
@@ -49,19 +49,68 @@ public class ClienteDAO {
         }
     }
     
+    public void editarCliente(Cliente cli){
+        try{
+            String sql = "UPDATE Cliente SET nome=?, rg=?, cpf=?, email=?, telefone=?, "
+                    + "celular=?, cep=?, endereco=?, numero=?, complemento=?, bairro=?, "
+                    + "cidade=?, uf=? WHERE id=?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            stmt.setString(1, cli.getNome());
+            stmt.setString(2, cli.getRg());
+            stmt.setString(3, cli.getCpf());
+            stmt.setString(4, cli.getEmail());
+            stmt.setString(5, cli.getTelefone());
+            stmt.setString(6, cli.getCelular());
+            stmt.setString(7, cli.getCep());
+            stmt.setString(8, cli.getEndereco());
+            stmt.setInt(9, cli.getNumero());
+            stmt.setString(10, cli.getComplemento());
+            stmt.setString(11, cli.getBairro());
+            stmt.setString(12, cli.getCidade());
+            stmt.setString(13, cli.getUf());
+            
+            stmt.setInt(14, cli.getId());
+            
+            stmt.execute();
+            stmt.close();
+            
+            JOptionPane.showMessageDialog(null, "Dados atualizados com sucesso.");
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Erro na busca de dados: \n" + e);
+        }
+    }
+    
+    public void excluirCliente(Cliente cli){
+        try {
+            String sql = "DELETE FROM Cliente WHERE id=?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            stmt.setInt(1, cli.getId());
+            stmt.execute();
+            stmt.close();
+            
+            JOptionPane.showMessageDialog(null, "Dados excluídos com sucesso.");
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir os dados: \n" + e);
+        }
+    }
+    
     public List<Cliente> listarClientes(){
         try {
             List<Cliente> clientes = new ArrayList<>();
             
             String sql = "SELECT * FROM cliente";
-            PreparedStatement stmt = this.con.prepareStatement(sql);
+            PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             
             while(rs.next()){
                 Cliente cli = new Cliente();
                 
                 cli.setId(rs.getInt("id"));
-                cli.setNome("nome");
+                cli.setNome(rs.getString("nome"));
                 cli.setRg(rs.getString("rg"));
                 cli.setCpf(rs.getString("cpf"));
                 cli.setEmail(rs.getString("email"));
