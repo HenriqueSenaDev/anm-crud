@@ -2,6 +2,7 @@ package br.com.ferias.view;
 
 import br.com.ferias.dao.ClienteDAO;
 import br.com.ferias.model.Cliente;
+import br.com.ferias.model.Utilities;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -69,7 +70,7 @@ public class frmCliente extends javax.swing.JFrame {
         tfEmail = new javax.swing.JTextField();
         button1 = new java.awt.Button();
         button2 = new java.awt.Button();
-        jButton1 = new javax.swing.JButton();
+        btSearchOne = new javax.swing.JButton();
         tfCep = new javax.swing.JFormattedTextField();
         tfBairro = new javax.swing.JTextField();
         tfRg = new javax.swing.JFormattedTextField();
@@ -91,11 +92,11 @@ public class frmCliente extends javax.swing.JFrame {
         cbUf = new javax.swing.JComboBox<>();
         panel2 = new java.awt.Panel();
         jLabel16 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        tfNameToSearch = new javax.swing.JTextField();
+        btSearchAll = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbClientes = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
+        btNew = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
         btEditar = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
@@ -195,10 +196,15 @@ public class frmCliente extends javax.swing.JFrame {
 
         button2.setLabel("button1");
 
-        jButton1.setBackground(new java.awt.Color(190, 208, 215));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("Pesquisar");
+        btSearchOne.setBackground(new java.awt.Color(190, 208, 215));
+        btSearchOne.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btSearchOne.setForeground(new java.awt.Color(0, 0, 0));
+        btSearchOne.setText("Pesquisar");
+        btSearchOne.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSearchOneActionPerformed(evt);
+            }
+        });
 
         tfCep.setBackground(new java.awt.Color(204, 204, 204));
         tfCep.setForeground(new java.awt.Color(0, 0, 0));
@@ -369,7 +375,7 @@ public class frmCliente extends javax.swing.JFrame {
                             .addGroup(panel1Layout.createSequentialGroup()
                                 .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton1))
+                                .addComponent(btSearchOne))
                             .addGroup(panel1Layout.createSequentialGroup()
                                 .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(34, 34, 34)
@@ -396,7 +402,7 @@ public class frmCliente extends javax.swing.JFrame {
                     .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(tfNome)
                         .addComponent(jLabel2))
-                    .addComponent(jButton1))
+                    .addComponent(btSearchOne))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -441,14 +447,19 @@ public class frmCliente extends javax.swing.JFrame {
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Nome:");
 
-        jTextField9.setBackground(new java.awt.Color(204, 204, 204));
-        jTextField9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField9.setForeground(new java.awt.Color(0, 0, 0));
+        tfNameToSearch.setBackground(new java.awt.Color(204, 204, 204));
+        tfNameToSearch.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tfNameToSearch.setForeground(new java.awt.Color(0, 0, 0));
 
-        jButton2.setBackground(new java.awt.Color(190, 208, 215));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
-        jButton2.setText("Pesquisar");
+        btSearchAll.setBackground(new java.awt.Color(190, 208, 215));
+        btSearchAll.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btSearchAll.setForeground(new java.awt.Color(0, 0, 0));
+        btSearchAll.setText("Pesquisar");
+        btSearchAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSearchAllActionPerformed(evt);
+            }
+        });
 
         tbClientes.setBackground(new java.awt.Color(204, 204, 204));
         tbClientes.setForeground(new java.awt.Color(0, 0, 0));
@@ -478,9 +489,9 @@ public class frmCliente extends javax.swing.JFrame {
                     .addGroup(panel2Layout.createSequentialGroup()
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfNameToSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)
+                        .addComponent(btSearchAll)
                         .addGap(0, 516, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -490,8 +501,8 @@ public class frmCliente extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addComponent(tfNameToSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btSearchAll))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(14, Short.MAX_VALUE))
@@ -499,10 +510,15 @@ public class frmCliente extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Consulta de Clientes", panel2);
 
-        jButton3.setBackground(new java.awt.Color(190, 208, 215));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(0, 0, 0));
-        jButton3.setText("+ Novo");
+        btNew.setBackground(new java.awt.Color(190, 208, 215));
+        btNew.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btNew.setForeground(new java.awt.Color(0, 0, 0));
+        btNew.setText("+ Novo");
+        btNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNewActionPerformed(evt);
+            }
+        });
 
         btSalvar.setBackground(new java.awt.Color(190, 208, 215));
         btSalvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -561,7 +577,7 @@ public class frmCliente extends javax.swing.JFrame {
                 .addGap(354, 354, 354))
             .addGroup(PainelPrincipalLayout.createSequentialGroup()
                 .addGap(339, 339, 339)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btNew, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -588,7 +604,7 @@ public class frmCliente extends javax.swing.JFrame {
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addGroup(PainelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
+                    .addComponent(btNew)
                     .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -638,6 +654,9 @@ public class frmCliente extends javax.swing.JFrame {
 
         ClienteDAO dao = new ClienteDAO();
         dao.editarCliente(cli);
+        
+        new Utilities().limparTela(panel1);
+        
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
@@ -648,6 +667,9 @@ public class frmCliente extends javax.swing.JFrame {
 
         ClienteDAO dao = new ClienteDAO();
         dao.excluirCliente(cli);
+        
+        new Utilities().limparTela(panel1);
+        
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
@@ -670,6 +692,9 @@ public class frmCliente extends javax.swing.JFrame {
 
         ClienteDAO dao = new ClienteDAO();
         dao.salvarCliente(cli);
+        
+        new Utilities().limparTela(panel1);
+        
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -696,6 +721,65 @@ public class frmCliente extends javax.swing.JFrame {
         cbUf.setSelectedItem(tbClientes.getValueAt(tbClientes.getSelectedRow(), 13).toString());
 
     }//GEN-LAST:event_tbClientesMouseClicked
+
+    private void btSearchAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchAllActionPerformed
+        // TODO add your handling code here:
+        
+        String nome = "%"+tfNameToSearch.getText()+"%";
+        
+        ClienteDAO dao = new ClienteDAO();
+        List<Cliente> clientes = dao.buscarClientePorNome(nome);
+        DefaultTableModel dados = (DefaultTableModel) tbClientes.getModel();
+        dados.setNumRows(0);
+
+        for (Cliente cliente : clientes) {
+            dados.addRow(new Object[]{
+                cliente.getId(),
+                cliente.getNome(),
+                cliente.getRg(),
+                cliente.getCpf(),
+                cliente.getEmail(),
+                cliente.getTelefone(),
+                cliente.getCelular(),
+                cliente.getCep(),
+                cliente.getEndereco(),
+                cliente.getNumero(),
+                cliente.getComplemento(),
+                cliente.getBairro(),
+                cliente.getCidade(),
+                cliente.getUf()
+            });
+        }
+    }//GEN-LAST:event_btSearchAllActionPerformed
+
+    private void btSearchOneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchOneActionPerformed
+        // TODO add your handling code here:
+        String nome = tfNome.getText();
+        ClienteDAO dao = new ClienteDAO();
+        
+        Cliente cli = dao.consultarCliente(nome);
+        
+        tfId.setText(String.valueOf(cli.getId()));
+        tfNome.setText(cli.getNome());
+        tfCpf.setText(cli.getCpf());
+        tfRg.setText(cli.getRg());
+        tfCep.setText(cli.getCep());
+        tfEmail.setText(cli.getEmail());
+        tfCelular.setText(cli.getCelular());
+        tfTelefone.setText(cli.getTelefone());
+        tfEndereco.setText(cli.getEndereco());
+        tfNumero.setText(String.valueOf(cli.getNumero()));
+        tfCidade.setText(cli.getCidade());
+        tfBairro.setText(cli.getBairro());
+        tfComplemento.setText(cli.getComplemento());
+        cbUf.setSelectedItem(cli.getUf());
+        
+    }//GEN-LAST:event_btSearchOneActionPerformed
+
+    private void btNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNewActionPerformed
+        // TODO add your handling code here:
+        new Utilities().limparTela(panel1);
+    }//GEN-LAST:event_btNewActionPerformed
 
     /**
      * @param args the command line arguments
@@ -738,13 +822,13 @@ public class frmCliente extends javax.swing.JFrame {
     private javax.swing.JPanel PainelPrincipal;
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btExcluir;
+    private javax.swing.JButton btNew;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JButton btSearchAll;
+    private javax.swing.JButton btSearchOne;
     private java.awt.Button button1;
     private java.awt.Button button2;
     private javax.swing.JComboBox<String> cbUf;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -765,7 +849,6 @@ public class frmCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField9;
     private java.awt.Menu menu1;
     private java.awt.Menu menu2;
     private java.awt.MenuBar menuBar1;
@@ -781,6 +864,7 @@ public class frmCliente extends javax.swing.JFrame {
     private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfEndereco;
     private javax.swing.JTextField tfId;
+    private javax.swing.JTextField tfNameToSearch;
     private javax.swing.JTextField tfNome;
     private javax.swing.JTextField tfNumero;
     private javax.swing.JFormattedTextField tfRg;

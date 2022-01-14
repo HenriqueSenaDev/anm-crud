@@ -135,4 +135,76 @@ public class ClienteDAO {
         }
     }
     
+    public List<Cliente> buscarClientePorNome(String nome){
+        try{
+            String sql = "SELECT * FROM cliente WHERE nome like ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, nome);
+            ResultSet rs = stmt.executeQuery();
+            
+            List<Cliente> clientes = new ArrayList<>();
+            
+            while(rs.next()){
+                Cliente cli = new Cliente();
+                
+                cli.setId(rs.getInt("id"));
+                cli.setNome(rs.getString("nome"));
+                cli.setRg(rs.getString("rg"));
+                cli.setCpf(rs.getString("cpf"));
+                cli.setEmail(rs.getString("email"));
+                cli.setTelefone(rs.getString("telefone"));
+                cli.setCelular(rs.getString("celular"));
+                cli.setCep(rs.getString("cep"));
+                cli.setEndereco(rs.getString("endereco"));
+                cli.setNumero(rs.getInt("numero"));
+                cli.setBairro(rs.getString("bairro"));
+                cli.setCidade(rs.getString("cidade"));
+                cli.setComplemento(rs.getString("complemento"));
+                cli.setUf(rs.getString("uf"));
+                
+                clientes.add(cli);
+            }
+            
+            return clientes;
+            
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Erro na busca de dados: \n" + e);
+            return null;
+        }
+    }
+    
+    public Cliente consultarCliente(String nome){
+        try{
+            String sql = "SELECT * FROM cliente WHERE nome = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, nome);
+            ResultSet rs = stmt.executeQuery();
+            Cliente cli = new Cliente();
+            
+            if(rs.next()){
+                
+                cli.setId(rs.getInt("id"));
+                cli.setNome(rs.getString("nome"));
+                cli.setRg(rs.getString("rg"));
+                cli.setCpf(rs.getString("cpf"));
+                cli.setEmail(rs.getString("email"));
+                cli.setTelefone(rs.getString("telefone"));
+                cli.setCelular(rs.getString("celular"));
+                cli.setCep(rs.getString("cep"));
+                cli.setEndereco(rs.getString("endereco"));
+                cli.setNumero(rs.getInt("numero"));
+                cli.setBairro(rs.getString("bairro"));
+                cli.setCidade(rs.getString("cidade"));
+                cli.setComplemento(rs.getString("complemento"));
+                cli.setUf(rs.getString("uf"));
+            }
+            
+            return cli;
+            
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Erro na busca de dados: \n" + e);
+            return null;
+        }
+    }
+    
 }
