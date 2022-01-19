@@ -78,7 +78,7 @@ public class ClienteDAO {
             JOptionPane.showMessageDialog(null, "Dados atualizados com sucesso.");
             
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Erro na busca de dados: \n" + e);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar os dados: \n" + e);
         }
     }
     
@@ -94,7 +94,7 @@ public class ClienteDAO {
             JOptionPane.showMessageDialog(null, "Dados excluídos com sucesso.");
             
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao excluir os dados: \n" + e);
+            JOptionPane.showMessageDialog(null, "Erro na exclusão de dados: \n" + e);
         }
     }
     

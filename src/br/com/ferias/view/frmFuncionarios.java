@@ -1,7 +1,7 @@
 package br.com.ferias.view;
 
-import br.com.ferias.dao.ClienteDAO;
-import br.com.ferias.model.Cliente;
+import br.com.ferias.dao.FuncionarioDAO;
+import br.com.ferias.model.Funcionario;
 import br.com.ferias.model.Utilities;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -16,27 +16,30 @@ public class frmFuncionarios extends javax.swing.JFrame {
     }
 
     public void listar() {
-        ClienteDAO dao = new ClienteDAO();
-        List<Cliente> clientes = dao.listarClientes();
-        DefaultTableModel dados = (DefaultTableModel) tbClientes.getModel();
+        FuncionarioDAO dao = new FuncionarioDAO();
+        List<Funcionario> funcionarios = dao.listarFuncionarios();
+        DefaultTableModel dados = (DefaultTableModel) tbFunc.getModel();
         dados.setNumRows(0);
 
-        for (Cliente cliente : clientes) {
+        for (Funcionario func : funcionarios) {
             dados.addRow(new Object[]{
-                cliente.getId(),
-                cliente.getNome(),
-                cliente.getRg(),
-                cliente.getCpf(),
-                cliente.getEmail(),
-                cliente.getTelefone(),
-                cliente.getCelular(),
-                cliente.getCep(),
-                cliente.getEndereco(),
-                cliente.getNumero(),
-                cliente.getComplemento(),
-                cliente.getBairro(),
-                cliente.getCidade(),
-                cliente.getUf()
+                func.getId(),
+                func.getNome(),
+                func.getRg(),
+                func.getCpf(),
+                func.getEmail(),
+                func.getSenha(),
+                func.getCargo(),
+                func.getNivelAcesso(),
+                func.getTelefone(),
+                func.getCelular(),
+                func.getCep(),
+                func.getEndereco(),
+                func.getNumero(),
+                func.getComplemento(),
+                func.getBairro(),
+                func.getCidade(),
+                func.getUf()
             });
         }
     }
@@ -91,17 +94,17 @@ public class frmFuncionarios extends javax.swing.JFrame {
         tfNumero = new javax.swing.JTextField();
         cbUf = new javax.swing.JComboBox<>();
         jLabel20 = new javax.swing.JLabel();
-        tfSenha = new javax.swing.JPasswordField();
         jLabel21 = new javax.swing.JLabel();
         tfCargo = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         cbNivelAcesso = new javax.swing.JComboBox<>();
+        tfSenha = new javax.swing.JPasswordField();
         panel2 = new java.awt.Panel();
         jLabel16 = new javax.swing.JLabel();
         tfNameToSearch = new javax.swing.JTextField();
         btSearchAll = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbClientes = new javax.swing.JTable();
+        tbFunc = new javax.swing.JTable();
         btNew = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
         btEditar = new javax.swing.JButton();
@@ -336,10 +339,6 @@ public class frmFuncionarios extends javax.swing.JFrame {
         jLabel20.setForeground(new java.awt.Color(0, 0, 0));
         jLabel20.setText("Senha:");
 
-        tfSenha.setBackground(new java.awt.Color(204, 204, 204));
-        tfSenha.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        tfSenha.setForeground(new java.awt.Color(0, 0, 0));
-
         jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(0, 0, 0));
         jLabel21.setText("Cargo:");
@@ -357,6 +356,10 @@ public class frmFuncionarios extends javax.swing.JFrame {
         cbNivelAcesso.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         cbNivelAcesso.setForeground(new java.awt.Color(0, 0, 0));
         cbNivelAcesso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuário", "Admin" }));
+
+        tfSenha.setBackground(new java.awt.Color(204, 204, 204));
+        tfSenha.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tfSenha.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
@@ -403,10 +406,10 @@ public class frmFuncionarios extends javax.swing.JFrame {
                             .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 57, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
-                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfRg, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfBairro, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                            .addComponent(tfRg, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                            .addComponent(tfSenha))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -482,9 +485,9 @@ public class frmFuncionarios extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel20)
-                            .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel21)
-                            .addComponent(tfCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(63, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -519,22 +522,22 @@ public class frmFuncionarios extends javax.swing.JFrame {
             }
         });
 
-        tbClientes.setBackground(new java.awt.Color(204, 204, 204));
-        tbClientes.setForeground(new java.awt.Color(0, 0, 0));
-        tbClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tbFunc.setBackground(new java.awt.Color(204, 204, 204));
+        tbFunc.setForeground(new java.awt.Color(0, 0, 0));
+        tbFunc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Nome", "RG", "CPF", "E-mail", "Telefone", "Celular", "CEP", "Endereço", "Nº", "Comp.", "Bairro", "Cidade", "UF"
+                "Código", "Nome", "RG", "CPF", "E-mail", "Senha", "Cargo", "Acesso", "Telefone", "Celular", "CEP", "Endereço", "Nº", "Comp.", "Bairro", "Cidade", "UF"
             }
         ));
-        tbClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbFunc.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbClientesMouseClicked(evt);
+                tbFuncMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tbClientes);
+        jScrollPane1.setViewportView(tbFunc);
 
         javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
         panel2.setLayout(panel2Layout);
@@ -702,25 +705,28 @@ public class frmFuncionarios extends javax.swing.JFrame {
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
         // TODO add your handling code here:
-        Cliente cli = new Cliente();
+        Funcionario func = new Funcionario();
 
-        cli.setNome(tfNome.getText());
-        cli.setRg(tfRg.getText());
-        cli.setCpf(tfCpf.getText());
-        cli.setTelefone(tfTelefone.getText());
-        cli.setCelular(tfCelular.getText());
-        cli.setEmail(tfEmail.getText());
-        cli.setCep(tfCep.getText());
-        cli.setNumero(Integer.parseInt(tfNumero.getText()));
-        cli.setComplemento(tfComplemento.getText());
-        cli.setBairro(tfBairro.getText());
-        cli.setCidade(tfCidade.getText());
-        cli.setEndereco(tfEndereco.getText());
-        cli.setUf(cbUf.getSelectedItem().toString());
-        cli.setId(Integer.parseInt(tfId.getText()));
+        func.setNome(tfNome.getText());
+        func.setRg(tfRg.getText());
+        func.setCpf(tfCpf.getText());
+        func.setTelefone(tfTelefone.getText());
+        func.setCelular(tfCelular.getText());
+        func.setEmail(tfEmail.getText());
+        func.setSenha(new String (tfSenha.getPassword()));
+        func.setCargo(tfCargo.getText());
+        func.setAcesso(cbNivelAcesso.getSelectedItem().toString());
+        func.setCep(tfCep.getText());
+        func.setNumero(Integer.parseInt(tfNumero.getText()));
+        func.setComplemento(tfComplemento.getText());
+        func.setBairro(tfBairro.getText());
+        func.setCidade(tfCidade.getText());
+        func.setEndereco(tfEndereco.getText());
+        func.setUf(cbUf.getSelectedItem().toString());
+        func.setId(Integer.parseInt(tfId.getText()));
 
-        ClienteDAO dao = new ClienteDAO();
-        dao.editarCliente(cli);
+        FuncionarioDAO dao = new FuncionarioDAO();
+        dao.editarFuncionario(func);
         
         new Utilities().limparTela(panel1);
         
@@ -728,12 +734,12 @@ public class frmFuncionarios extends javax.swing.JFrame {
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         // TODO add your handling code here:
-        Cliente cli = new Cliente();
+        Funcionario func = new Funcionario();
 
-        cli.setId(Integer.parseInt(tfId.getText()));
+        func.setId(Integer.parseInt(tfId.getText()));
 
-        ClienteDAO dao = new ClienteDAO();
-        dao.excluirCliente(cli);
+        FuncionarioDAO dao = new FuncionarioDAO();
+        dao.excluirFuncionario(func);
         
         new Utilities().limparTela(panel1);
         
@@ -741,24 +747,27 @@ public class frmFuncionarios extends javax.swing.JFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         // TODO add your handling code here:
-        Cliente cli = new Cliente();
+        Funcionario func = new Funcionario();
 
-        cli.setNome(tfNome.getText());
-        cli.setRg(tfRg.getText());
-        cli.setCpf(tfCpf.getText());
-        cli.setEmail(tfEmail.getText());
-        cli.setTelefone(tfTelefone.getText());
-        cli.setCelular(tfCelular.getText());
-        cli.setCep(tfCep.getText());
-        cli.setEndereco(tfEndereco.getText());
-        cli.setNumero(Integer.parseInt(tfNumero.getText()));
-        cli.setComplemento(tfComplemento.getText());
-        cli.setCidade(tfCidade.getText());
-        cli.setBairro(tfBairro.getText());
-        cli.setUf(cbUf.getSelectedItem().toString());
+        func.setNome(tfNome.getText());
+        func.setRg(tfRg.getText());
+        func.setCpf(tfCpf.getText());
+        func.setEmail(tfEmail.getText());
+        func.setTelefone(tfTelefone.getText());
+        func.setCelular(tfCelular.getText());
+        func.setSenha(tfSenha.getText());
+        func.setCargo(tfCargo.getText());
+        func.setAcesso(cbNivelAcesso.getSelectedItem().toString());
+        func.setCep(tfCep.getText());
+        func.setEndereco(tfEndereco.getText());
+        func.setNumero(Integer.parseInt(tfNumero.getText()));
+        func.setComplemento(tfComplemento.getText());
+        func.setCidade(tfCidade.getText());
+        func.setBairro(tfBairro.getText());
+        func.setUf(cbUf.getSelectedItem().toString());
 
-        ClienteDAO dao = new ClienteDAO();
-        dao.salvarCliente(cli);
+        FuncionarioDAO dao = new FuncionarioDAO();
+        dao.salvarFuncionario(func);
         
         new Utilities().limparTela(panel1);
         
@@ -769,52 +778,58 @@ public class frmFuncionarios extends javax.swing.JFrame {
         listar();
     }//GEN-LAST:event_formWindowActivated
 
-    private void tbClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbClientesMouseClicked
+    private void tbFuncMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbFuncMouseClicked
         // TODO add your handling code here:
         jTabbedPane1.setSelectedIndex(0);
-        tfId.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 0).toString());
-        tfNome.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 1).toString());
-        tfRg.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 2).toString());
-        tfCpf.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 3).toString());
-        tfEmail.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 4).toString());
-        tfTelefone.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 5).toString());
-        tfCelular.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 6).toString());
-        tfCep.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 7).toString());
-        tfEndereco.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 8).toString());
-        tfNumero.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 9).toString());
-        tfComplemento.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 10).toString());
-        tfBairro.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 11).toString());
-        tfCidade.setText(tbClientes.getValueAt(tbClientes.getSelectedRow(), 12).toString());
-        cbUf.setSelectedItem(tbClientes.getValueAt(tbClientes.getSelectedRow(), 13).toString());
+        tfId.setText(tbFunc.getValueAt(tbFunc.getSelectedRow(), 0).toString());
+        tfNome.setText(tbFunc.getValueAt(tbFunc.getSelectedRow(), 1).toString());
+        tfRg.setText(tbFunc.getValueAt(tbFunc.getSelectedRow(), 2).toString());
+        tfCpf.setText(tbFunc.getValueAt(tbFunc.getSelectedRow(), 3).toString());
+        tfEmail.setText(tbFunc.getValueAt(tbFunc.getSelectedRow(), 4).toString());
+        tfSenha.setText(tbFunc.getValueAt(tbFunc.getSelectedRow(), 5).toString());
+        tfCargo.setText(tbFunc.getValueAt(tbFunc.getSelectedRow(), 6).toString());
+        cbNivelAcesso.setSelectedItem(tbFunc.getValueAt(tbFunc.getSelectedRow(), 7).toString());
+        tfTelefone.setText(tbFunc.getValueAt(tbFunc.getSelectedRow(), 8).toString());
+        tfCelular.setText(tbFunc.getValueAt(tbFunc.getSelectedRow(), 9).toString());
+        tfCep.setText(tbFunc.getValueAt(tbFunc.getSelectedRow(), 10).toString());
+        tfEndereco.setText(tbFunc.getValueAt(tbFunc.getSelectedRow(), 11).toString());
+        tfNumero.setText(tbFunc.getValueAt(tbFunc.getSelectedRow(), 12).toString());
+        tfComplemento.setText(tbFunc.getValueAt(tbFunc.getSelectedRow(), 13).toString());
+        tfBairro.setText(tbFunc.getValueAt(tbFunc.getSelectedRow(), 14).toString());
+        tfCidade.setText(tbFunc.getValueAt(tbFunc.getSelectedRow(), 15).toString());
+        cbUf.setSelectedItem(tbFunc.getValueAt(tbFunc.getSelectedRow(), 16).toString());
 
-    }//GEN-LAST:event_tbClientesMouseClicked
+    }//GEN-LAST:event_tbFuncMouseClicked
 
     private void btSearchAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchAllActionPerformed
         // TODO add your handling code here:
         
         String nome = "%"+tfNameToSearch.getText()+"%";
         
-        ClienteDAO dao = new ClienteDAO();
-        List<Cliente> clientes = dao.buscarClientePorNome(nome);
-        DefaultTableModel dados = (DefaultTableModel) tbClientes.getModel();
+        FuncionarioDAO dao = new FuncionarioDAO();
+        List<Funcionario> funcionarios = dao.buscarFuncPorNome(nome);
+        DefaultTableModel dados = (DefaultTableModel) tbFunc.getModel();
         dados.setNumRows(0);
 
-        for (Cliente cliente : clientes) {
+        for (Funcionario func : funcionarios) {
             dados.addRow(new Object[]{
-                cliente.getId(),
-                cliente.getNome(),
-                cliente.getRg(),
-                cliente.getCpf(),
-                cliente.getEmail(),
-                cliente.getTelefone(),
-                cliente.getCelular(),
-                cliente.getCep(),
-                cliente.getEndereco(),
-                cliente.getNumero(),
-                cliente.getComplemento(),
-                cliente.getBairro(),
-                cliente.getCidade(),
-                cliente.getUf()
+                func.getId(),
+                func.getNome(),
+                func.getRg(),
+                func.getCpf(),
+                func.getEmail(),
+                func.getSenha(),
+                func.getCargo(),
+                func.getNivelAcesso(),
+                func.getTelefone(),
+                func.getCelular(),
+                func.getCep(),
+                func.getEndereco(),
+                func.getNumero(),
+                func.getComplemento(),
+                func.getBairro(),
+                func.getCidade(),
+                func.getUf()
             });
         }
     }//GEN-LAST:event_btSearchAllActionPerformed
@@ -822,24 +837,27 @@ public class frmFuncionarios extends javax.swing.JFrame {
     private void btSearchOneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchOneActionPerformed
         // TODO add your handling code here:
         String nome = tfNome.getText();
-        ClienteDAO dao = new ClienteDAO();
+        FuncionarioDAO dao = new FuncionarioDAO();
         
-        Cliente cli = dao.consultarCliente(nome);
+        Funcionario func = dao.consultarFunc(nome);
         
-        tfId.setText(String.valueOf(cli.getId()));
-        tfNome.setText(cli.getNome());
-        tfCpf.setText(cli.getCpf());
-        tfRg.setText(cli.getRg());
-        tfCep.setText(cli.getCep());
-        tfEmail.setText(cli.getEmail());
-        tfCelular.setText(cli.getCelular());
-        tfTelefone.setText(cli.getTelefone());
-        tfEndereco.setText(cli.getEndereco());
-        tfNumero.setText(String.valueOf(cli.getNumero()));
-        tfCidade.setText(cli.getCidade());
-        tfBairro.setText(cli.getBairro());
-        tfComplemento.setText(cli.getComplemento());
-        cbUf.setSelectedItem(cli.getUf());
+        tfId.setText(String.valueOf(func.getId()));
+        tfNome.setText(func.getNome());
+        tfCpf.setText(func.getCpf());
+        tfRg.setText(func.getRg());
+        tfCep.setText(func.getCep());
+        tfEmail.setText(func.getEmail());
+        tfSenha.setText(func.getSenha());
+        tfCargo.setText(func.getCargo());
+        cbNivelAcesso.setSelectedItem(func.getNivelAcesso());
+        tfCelular.setText(func.getCelular());
+        tfTelefone.setText(func.getTelefone());
+        tfEndereco.setText(func.getEndereco());
+        tfNumero.setText(String.valueOf(func.getNumero()));
+        tfCidade.setText(func.getCidade());
+        tfBairro.setText(func.getBairro());
+        tfComplemento.setText(func.getComplemento());
+        cbUf.setSelectedItem(func.getUf());
         
     }//GEN-LAST:event_btSearchOneActionPerformed
 
@@ -927,7 +945,7 @@ public class frmFuncionarios extends javax.swing.JFrame {
     private java.awt.MenuBar menuBar1;
     private java.awt.Panel panel1;
     private java.awt.Panel panel2;
-    private javax.swing.JTable tbClientes;
+    private javax.swing.JTable tbFunc;
     private javax.swing.JTextField tfBairro;
     private javax.swing.JTextField tfCargo;
     private javax.swing.JFormattedTextField tfCelular;

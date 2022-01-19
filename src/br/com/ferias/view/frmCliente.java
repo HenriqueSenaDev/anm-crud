@@ -4,6 +4,7 @@ import br.com.ferias.dao.ClienteDAO;
 import br.com.ferias.model.Cliente;
 import br.com.ferias.model.Utilities;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class frmCliente extends javax.swing.JFrame {
@@ -770,6 +771,9 @@ public class frmCliente extends javax.swing.JFrame {
         
         Cliente cli = dao.consultarCliente(nome);
         
+        if(cli.getId() == null){
+            JOptionPane.showMessageDialog(null, "Usuário não existe no sistema.");
+        }else{
         tfId.setText(String.valueOf(cli.getId()));
         tfNome.setText(cli.getNome());
         tfCpf.setText(cli.getCpf());
@@ -784,7 +788,7 @@ public class frmCliente extends javax.swing.JFrame {
         tfBairro.setText(cli.getBairro());
         tfComplemento.setText(cli.getComplemento());
         cbUf.setSelectedItem(cli.getUf());
-        
+        }
     }//GEN-LAST:event_btSearchOneActionPerformed
 
     private void btNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNewActionPerformed
