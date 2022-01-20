@@ -1,11 +1,11 @@
 package br.com.ferias.model;
 
-public class Funcionario extends Cliente{
-    
+public class Funcionario extends Cliente {
+
     private String cargo;
     private String senha;
     private String nivelAcesso;
-    
+
     public String getCargo() {
         return cargo;
     }
@@ -29,7 +29,5 @@ public class Funcionario extends Cliente{
     public void setAcesso(String nivelAcesso) {
         this.nivelAcesso = nivelAcesso;
     }
-    
-    
-    
+
 }

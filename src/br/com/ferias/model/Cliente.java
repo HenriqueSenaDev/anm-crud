@@ -1,7 +1,7 @@
 package br.com.ferias.model;
 
 public class Cliente {
-    
+
     private Integer id;
     private String nome;
     private String rg;
@@ -128,6 +128,5 @@ public class Cliente {
     public void setUf(String uf) {
         this.uf = uf;
     }
-    
-    
+
 }

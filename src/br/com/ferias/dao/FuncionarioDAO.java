@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 
 import br.com.ferias.jdbc.ConnectionFactory;
 import br.com.ferias.model.Funcionario;
+import br.com.ferias.model.WebServiceCep;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,10 +120,10 @@ public class FuncionarioDAO {
 
             PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Funcionario func = new Funcionario();
-                
+
                 func.setId(rs.getInt("id"));
                 func.setNome(rs.getString("nome"));
                 func.setRg(rs.getString("rg"));
@@ -140,30 +141,30 @@ public class FuncionarioDAO {
                 func.setBairro(rs.getString("bairro"));
                 func.setCidade(rs.getString("cidade"));
                 func.setUf(rs.getString("estado"));
-                
+
                 funcionarios.add(func);
             }
-            
+
             return funcionarios;
-            
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro na busca de dados: \n" + e);
             return null;
         }
     }
-    
-    public List<Funcionario> buscarFuncPorNome(String nome){
+
+    public List<Funcionario> buscarFuncPorNome(String nome) {
         try {
             List<Funcionario> funcionarios = new ArrayList<>();
-            
+
             String sql = "SELECT * FROM tb_funcionarios WHERE nome LIKE ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, nome);
             ResultSet rs = stmt.executeQuery();
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Funcionario func = new Funcionario();
-                
+
                 func.setId(rs.getInt("id"));
                 func.setNome(rs.getString("nome"));
                 func.setRg(rs.getString("rg"));
@@ -181,28 +182,28 @@ public class FuncionarioDAO {
                 func.setBairro(rs.getString("bairro"));
                 func.setCidade(rs.getString("cidade"));
                 func.setUf(rs.getString("estado"));
-                
+
                 funcionarios.add(func);
             }
-            
+
             return funcionarios;
-                    
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro na busca de dados: \n" + e);
             return null;
         }
     }
-    
-    public Funcionario consultarFunc(String nome){
+
+    public Funcionario consultarFunc(String nome) {
         try {
-            String sql = "SELECT FROM tb_funcionarios WHERE nome = ?";
+            String sql = "SELECT * FROM tb_funcionarios WHERE nome = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, nome);
             ResultSet rs = stmt.executeQuery();
-            
+
             Funcionario func = new Funcionario();
-            
-            if(rs.next()){
+
+            if (rs.next()) {
                 func.setId(rs.getInt("id"));
                 func.setNome(rs.getString("nome"));
                 func.setRg(rs.getString("rg"));
@@ -221,12 +222,32 @@ public class FuncionarioDAO {
                 func.setCidade(rs.getString("cidade"));
                 func.setUf(rs.getString("estado"));
             }
-            
+
             return func;
-            
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro na busca de dados: \n" + e);
             return null;
         }
+    }
+
+    public Funcionario buscaCep(String cep) {
+
+        WebServiceCep webServiceCep = WebServiceCep.searchCep(cep);
+
+        Funcionario obj = new Funcionario();
+
+        if (webServiceCep.wasSuccessful()) {
+            obj.setEndereco(webServiceCep.getLogradouroFull());
+            obj.setCidade(webServiceCep.getCidade());
+            obj.setBairro(webServiceCep.getBairro());
+            obj.setUf(webServiceCep.getUf());
+            return obj;
+        } else {
+            JOptionPane.showMessageDialog(null, "Erro numero: " + webServiceCep.getResulCode());
+            JOptionPane.showMessageDialog(null, "Descrição do erro: " + webServiceCep.getResultText());
+            return null;
+        }
+
     }
 }

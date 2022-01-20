@@ -3,6 +3,7 @@ package br.com.ferias.view;
 import br.com.ferias.dao.ClienteDAO;
 import br.com.ferias.model.Cliente;
 import br.com.ferias.model.Utilities;
+import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -216,6 +217,11 @@ public class frmCliente extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         tfCep.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tfCep.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfCepKeyPressed(evt);
+            }
+        });
 
         tfBairro.setBackground(new java.awt.Color(204, 204, 204));
         tfBairro.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -666,9 +672,9 @@ public class frmCliente extends javax.swing.JFrame {
 
         ClienteDAO dao = new ClienteDAO();
         dao.editarCliente(cli);
-        
+
         new Utilities().limparTela(panel1);
-        
+
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
@@ -679,9 +685,9 @@ public class frmCliente extends javax.swing.JFrame {
 
         ClienteDAO dao = new ClienteDAO();
         dao.excluirCliente(cli);
-        
+
         new Utilities().limparTela(panel1);
-        
+
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
@@ -704,9 +710,9 @@ public class frmCliente extends javax.swing.JFrame {
 
         ClienteDAO dao = new ClienteDAO();
         dao.salvarCliente(cli);
-        
+
         new Utilities().limparTela(panel1);
-        
+
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -736,9 +742,9 @@ public class frmCliente extends javax.swing.JFrame {
 
     private void btSearchAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchAllActionPerformed
         // TODO add your handling code here:
-        
-        String nome = "%"+tfNameToSearch.getText()+"%";
-        
+
+        String nome = "%" + tfNameToSearch.getText() + "%";
+
         ClienteDAO dao = new ClienteDAO();
         List<Cliente> clientes = dao.buscarClientePorNome(nome);
         DefaultTableModel dados = (DefaultTableModel) tbClientes.getModel();
@@ -768,26 +774,26 @@ public class frmCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
         String nome = tfNome.getText();
         ClienteDAO dao = new ClienteDAO();
-        
+
         Cliente cli = dao.consultarCliente(nome);
-        
-        if(cli.getId() == null){
+
+        if (cli.getId() == null) {
             JOptionPane.showMessageDialog(null, "Usuário não existe no sistema.");
-        }else{
-        tfId.setText(String.valueOf(cli.getId()));
-        tfNome.setText(cli.getNome());
-        tfCpf.setText(cli.getCpf());
-        tfRg.setText(cli.getRg());
-        tfCep.setText(cli.getCep());
-        tfEmail.setText(cli.getEmail());
-        tfCelular.setText(cli.getCelular());
-        tfTelefone.setText(cli.getTelefone());
-        tfEndereco.setText(cli.getEndereco());
-        tfNumero.setText(String.valueOf(cli.getNumero()));
-        tfCidade.setText(cli.getCidade());
-        tfBairro.setText(cli.getBairro());
-        tfComplemento.setText(cli.getComplemento());
-        cbUf.setSelectedItem(cli.getUf());
+        } else {
+            tfId.setText(String.valueOf(cli.getId()));
+            tfNome.setText(cli.getNome());
+            tfCpf.setText(cli.getCpf());
+            tfRg.setText(cli.getRg());
+            tfCep.setText(cli.getCep());
+            tfEmail.setText(cli.getEmail());
+            tfCelular.setText(cli.getCelular());
+            tfTelefone.setText(cli.getTelefone());
+            tfEndereco.setText(cli.getEndereco());
+            tfNumero.setText(String.valueOf(cli.getNumero()));
+            tfCidade.setText(cli.getCidade());
+            tfBairro.setText(cli.getBairro());
+            tfComplemento.setText(cli.getComplemento());
+            cbUf.setSelectedItem(cli.getUf());
         }
     }//GEN-LAST:event_btSearchOneActionPerformed
 
@@ -795,6 +801,23 @@ public class frmCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
         new Utilities().limparTela(panel1);
     }//GEN-LAST:event_btNewActionPerformed
+
+    private void tfCepKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCepKeyPressed
+        // TODO add your handling code here:
+        //Programacao do keypress
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Cliente obj = new Cliente();
+            ClienteDAO dao = new ClienteDAO();
+            obj = dao.buscaCep(tfCep.getText());
+
+            tfEndereco.setText(obj.getEndereco());
+            tfBairro.setText(obj.getBairro());
+            tfCidade.setText(obj.getCidade());
+            cbUf.setSelectedItem(obj.getUf());
+
+        }
+
+    }//GEN-LAST:event_tfCepKeyPressed
 
     /**
      * @param args the command line arguments

@@ -3,7 +3,9 @@ package br.com.ferias.view;
 import br.com.ferias.dao.FuncionarioDAO;
 import br.com.ferias.model.Funcionario;
 import br.com.ferias.model.Utilities;
+import java.awt.event.KeyEvent;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class frmFuncionarios extends javax.swing.JFrame {
@@ -224,6 +226,11 @@ public class frmFuncionarios extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         tfCep.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tfCep.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfCepKeyPressed(evt);
+            }
+        });
 
         tfBairro.setBackground(new java.awt.Color(204, 204, 204));
         tfBairro.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -713,7 +720,7 @@ public class frmFuncionarios extends javax.swing.JFrame {
         func.setTelefone(tfTelefone.getText());
         func.setCelular(tfCelular.getText());
         func.setEmail(tfEmail.getText());
-        func.setSenha(new String (tfSenha.getPassword()));
+        func.setSenha(new String(tfSenha.getPassword()));
         func.setCargo(tfCargo.getText());
         func.setAcesso(cbNivelAcesso.getSelectedItem().toString());
         func.setCep(tfCep.getText());
@@ -727,9 +734,9 @@ public class frmFuncionarios extends javax.swing.JFrame {
 
         FuncionarioDAO dao = new FuncionarioDAO();
         dao.editarFuncionario(func);
-        
+
         new Utilities().limparTela(panel1);
-        
+
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
@@ -740,9 +747,9 @@ public class frmFuncionarios extends javax.swing.JFrame {
 
         FuncionarioDAO dao = new FuncionarioDAO();
         dao.excluirFuncionario(func);
-        
+
         new Utilities().limparTela(panel1);
-        
+
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
@@ -768,9 +775,9 @@ public class frmFuncionarios extends javax.swing.JFrame {
 
         FuncionarioDAO dao = new FuncionarioDAO();
         dao.salvarFuncionario(func);
-        
+
         new Utilities().limparTela(panel1);
-        
+
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -803,9 +810,9 @@ public class frmFuncionarios extends javax.swing.JFrame {
 
     private void btSearchAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchAllActionPerformed
         // TODO add your handling code here:
-        
-        String nome = "%"+tfNameToSearch.getText()+"%";
-        
+
+        String nome = "%" + tfNameToSearch.getText() + "%";
+
         FuncionarioDAO dao = new FuncionarioDAO();
         List<Funcionario> funcionarios = dao.buscarFuncPorNome(nome);
         DefaultTableModel dados = (DefaultTableModel) tbFunc.getModel();
@@ -838,33 +845,53 @@ public class frmFuncionarios extends javax.swing.JFrame {
         // TODO add your handling code here:
         String nome = tfNome.getText();
         FuncionarioDAO dao = new FuncionarioDAO();
-        
+
         Funcionario func = dao.consultarFunc(nome);
-        
-        tfId.setText(String.valueOf(func.getId()));
-        tfNome.setText(func.getNome());
-        tfCpf.setText(func.getCpf());
-        tfRg.setText(func.getRg());
-        tfCep.setText(func.getCep());
-        tfEmail.setText(func.getEmail());
-        tfSenha.setText(func.getSenha());
-        tfCargo.setText(func.getCargo());
-        cbNivelAcesso.setSelectedItem(func.getNivelAcesso());
-        tfCelular.setText(func.getCelular());
-        tfTelefone.setText(func.getTelefone());
-        tfEndereco.setText(func.getEndereco());
-        tfNumero.setText(String.valueOf(func.getNumero()));
-        tfCidade.setText(func.getCidade());
-        tfBairro.setText(func.getBairro());
-        tfComplemento.setText(func.getComplemento());
-        cbUf.setSelectedItem(func.getUf());
-        
+
+        if (func.getId() == null) {
+            JOptionPane.showMessageDialog(null, "Usuário não existe no sistema.");
+        } else {
+            tfId.setText(String.valueOf(func.getId()));
+            tfNome.setText(func.getNome());
+            tfCpf.setText(func.getCpf());
+            tfRg.setText(func.getRg());
+            tfCep.setText(func.getCep());
+            tfEmail.setText(func.getEmail());
+            tfSenha.setText(func.getSenha());
+            tfCargo.setText(func.getCargo());
+            cbNivelAcesso.setSelectedItem(func.getNivelAcesso());
+            tfCelular.setText(func.getCelular());
+            tfTelefone.setText(func.getTelefone());
+            tfEndereco.setText(func.getEndereco());
+            tfNumero.setText(String.valueOf(func.getNumero()));
+            tfCidade.setText(func.getCidade());
+            tfBairro.setText(func.getBairro());
+            tfComplemento.setText(func.getComplemento());
+            cbUf.setSelectedItem(func.getUf());
+        }
+
     }//GEN-LAST:event_btSearchOneActionPerformed
 
     private void btNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNewActionPerformed
         // TODO add your handling code here:
         new Utilities().limparTela(panel1);
     }//GEN-LAST:event_btNewActionPerformed
+
+    private void tfCepKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCepKeyPressed
+        // TODO add your handling code here:
+        //Programacao do keypress
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Funcionario obj = new Funcionario();
+            FuncionarioDAO dao = new FuncionarioDAO();
+            obj = dao.buscaCep(tfCep.getText());
+
+            tfEndereco.setText(obj.getEndereco());
+            tfBairro.setText(obj.getBairro());
+            tfCidade.setText(obj.getCidade());
+            cbUf.setSelectedItem(obj.getUf());
+
+        }
+    }//GEN-LAST:event_tfCepKeyPressed
 
     /**
      * @param args the command line arguments
