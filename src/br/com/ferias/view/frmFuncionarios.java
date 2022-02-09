@@ -518,6 +518,11 @@ public class frmFuncionarios extends javax.swing.JFrame {
         tfNameToSearch.setBackground(new java.awt.Color(204, 204, 204));
         tfNameToSearch.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tfNameToSearch.setForeground(new java.awt.Color(0, 0, 0));
+        tfNameToSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfNameToSearchKeyPressed(evt);
+            }
+        });
 
         btSearchAll.setBackground(new java.awt.Color(190, 208, 215));
         btSearchAll.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -892,6 +897,38 @@ public class frmFuncionarios extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_tfCepKeyPressed
+
+    private void tfNameToSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNameToSearchKeyPressed
+        // TODO add your handling code here:
+        String nome = "%" + tfNameToSearch.getText() + "%";
+
+        FuncionarioDAO dao = new FuncionarioDAO();
+        List<Funcionario> funcionarios = dao.buscarFuncPorNome(nome);
+        DefaultTableModel dados = (DefaultTableModel) tbFunc.getModel();
+        dados.setNumRows(0);
+
+        for (Funcionario func : funcionarios) {
+            dados.addRow(new Object[]{
+                func.getId(),
+                func.getNome(),
+                func.getRg(),
+                func.getCpf(),
+                func.getEmail(),
+                func.getSenha(),
+                func.getCargo(),
+                func.getNivelAcesso(),
+                func.getTelefone(),
+                func.getCelular(),
+                func.getCep(),
+                func.getEndereco(),
+                func.getNumero(),
+                func.getComplemento(),
+                func.getBairro(),
+                func.getCidade(),
+                func.getUf()
+            });
+        }
+    }//GEN-LAST:event_tfNameToSearchKeyPressed
 
     /**
      * @param args the command line arguments

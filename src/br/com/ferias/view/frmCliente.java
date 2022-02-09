@@ -458,6 +458,11 @@ public class frmCliente extends javax.swing.JFrame {
         tfNameToSearch.setBackground(new java.awt.Color(204, 204, 204));
         tfNameToSearch.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tfNameToSearch.setForeground(new java.awt.Color(0, 0, 0));
+        tfNameToSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfNameToSearchKeyPressed(evt);
+            }
+        });
 
         btSearchAll.setBackground(new java.awt.Color(190, 208, 215));
         btSearchAll.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -818,6 +823,35 @@ public class frmCliente extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_tfCepKeyPressed
+
+    private void tfNameToSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNameToSearchKeyPressed
+        // TODO add your handling code here:
+        String nome = "%" + tfNameToSearch.getText() + "%";
+
+        ClienteDAO dao = new ClienteDAO();
+        List<Cliente> clientes = dao.buscarClientePorNome(nome);
+        DefaultTableModel dados = (DefaultTableModel) tbClientes.getModel();
+        dados.setNumRows(0);
+
+        for (Cliente cliente : clientes) {
+            dados.addRow(new Object[]{
+                cliente.getId(),
+                cliente.getNome(),
+                cliente.getRg(),
+                cliente.getCpf(),
+                cliente.getEmail(),
+                cliente.getTelefone(),
+                cliente.getCelular(),
+                cliente.getCep(),
+                cliente.getEndereco(),
+                cliente.getNumero(),
+                cliente.getComplemento(),
+                cliente.getBairro(),
+                cliente.getCidade(),
+                cliente.getUf()
+            });
+        }
+    }//GEN-LAST:event_tfNameToSearchKeyPressed
 
     /**
      * @param args the command line arguments
