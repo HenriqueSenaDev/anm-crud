@@ -6,8 +6,39 @@ Aplicação desktop construída a partir da linguagem Java e sua biblioteca de r
 Oferece operações CRUD (create, read, update, delete) para clientes e funcionários com campos de entrada de diferentes tipos. Cada entidade tem seu próprio painel, executado separadamente.
 Projeto acadêmico da EEEP Alfredo Nunes de Melo - Acopiara, CE.
 
-Persistência no Banco de Dados Postgresql. O projeto pode facilmente optar por outro banco de dados adicionando um driver **JDBC** alternativo nas libs.
+Persistência no Banco de Dados PostgreSQL. O projeto pode facilmente optar por outro banco de dados adicionando um driver **JDBC** alternativo nas pasta libs.
+
+## Tecnologias
+- Java +17
+- Swing
+- Data Access Object pattern (DAO)
+- PostgreSQL
+- Ferramenta de build Apache Ant +10
 
 ## Layout
 ![Form](https://github.com/HenriqueSenaDev/assets/blob/main/anm-crud/form.png)
 ![List](https://github.com/HenriqueSenaDev/assets/blob/main/anm-crud/list.png)
+
+## Execute o projeto
+**Requisitos:**
+- JDK LTS +17
+- Variáveis de Ambiente:
+    - DB_USER (usuário do banco de dados),
+    - DB_PASS (senha do banco de dados),
+    - DB_URL (url do banco de dados).
+
+[Baixe o Jar](https://github.com/HenriqueSenaDev/assets/blob/main/anm-crud/anm-crud-20240119.jar)
+
+Ou clone o projeto (necessário Apache Ant +10):
+
+```bash
+git clone https://github.com/HenriqueSenaDev/anm-crud.git
+cd anm-crud
+ant // cria um jar na pasta dist/lib
+```
+
+E execute:
+```bash
+java -jar anm-crud-[timestamp].jar // painel de clientes
+java -cp amn-crud-[timestamp].jar br.com.ferias.view.frmFuncionarios // painel de funcionários
+```
