@@ -8,7 +8,10 @@ public class ConnectionFactory {
 
     public Connection getConnection() {
         try {
-            return DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/PROJETOFERIAS", "admin", "devadmin");
+            return DriverManager.getConnection(
+                            System.getenv("DB_URL"),
+                            System.getenv("DB_USER"),
+                            System.getenv("DB_PASS"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

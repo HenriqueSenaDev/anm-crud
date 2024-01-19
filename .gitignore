@@ -3,4 +3,9 @@
 /nbproject/
 /.idea/
 /out/
+
+# config
 *.iml
+
+# env
+env.properties
