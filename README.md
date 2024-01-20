@@ -22,6 +22,7 @@ Persistência no Banco de Dados PostgreSQL. O projeto pode facilmente optar por 
 ## Execute o projeto
 **Requisitos:**
 - JDK LTS +17
+- Executar o database-script.sql na pasta **resources** para criar as tabelas do banco de dados
 - Variáveis de Ambiente:
     - DB_USER (usuário do banco de dados),
     - DB_PASS (senha do banco de dados),
@@ -37,7 +38,7 @@ cd anm-crud
 ant // cria um jar na pasta dist/lib
 ```
 
-E execute:
+E execute o Jar em seu diretório:
 ```bash
 java -jar anm-crud-[timestamp].jar // painel de clientes
 java -cp amn-crud-[timestamp].jar br.com.ferias.view.frmFuncionarios // painel de funcionários
