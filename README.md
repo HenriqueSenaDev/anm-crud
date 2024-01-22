@@ -35,11 +35,14 @@ Ou clone o projeto (necessário Apache Ant +10):
 ```bash
 git clone https://github.com/HenriqueSenaDev/anm-crud.git
 cd anm-crud
-ant // cria um jar na pasta dist/lib
+# cria um jar na pasta dist/lib
+ant
 ```
 
 E execute o Jar em seu diretório:
 ```bash
-java -jar anm-crud-[timestamp].jar // painel de clientes
-java -cp amn-crud-[timestamp].jar br.com.ferias.view.frmFuncionarios // painel de funcionários
+# painel de clientes
+java -jar anm-crud-[timestamp].jar
+# painel de funcionários
+java -cp amn-crud-[timestamp].jar br.com.ferias.view.frmFuncionarios
 ```
