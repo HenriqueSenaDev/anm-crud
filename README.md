@@ -1,7 +1,6 @@
-# ANM - CRUD
-[![NPM](https://img.shields.io/npm/l/react)](https://github.com/HenriqueSenaDev/anm-crud/blob/master/LICENSE) 
+# ANM - CRUD [![NPM](https://img.shields.io/npm/l/react)](https://github.com/HenriqueSenaDev/anm-crud/blob/master/LICENSE) 
 ![Java](https://img.shields.io/badge/Java-CA4245?style=for-the-badge&logo=openjdk&logoColor=white)
-![PostgreSQL](	https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 
 Aplicação desktop construída a partir da linguagem Java e sua biblioteca de renderização gráfica Swing.
 Oferece operações CRUD (create, read, update, delete) para clientes e funcionários com campos de entrada de diferentes tipos. Cada entidade tem seu próprio painel, executado separadamente.
